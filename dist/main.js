@@ -30,8 +30,8 @@ const init = async () => {
             return;
         console.log(message.content);
         generating = true;
+        const sentMessage = await message.channel.send("`回答を生成中…`");
         try {
-            const sentMessage = await message.channel.send("`回答を生成中…`");
             console.log("completion start");
             const res = await (0, chat_1.interact)(message.content, openai);
             console.log("completion done");
@@ -39,6 +39,7 @@ const init = async () => {
         }
         catch (err) {
             console.error(err);
+            sentMessage.edit(`\`ERROR: ${err.message}\``);
             generating = false;
             return;
         }
