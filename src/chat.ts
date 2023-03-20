@@ -11,13 +11,15 @@ const prompt = {
 } as const satisfies Chat;
 
 export const interact = async (usersMessage: string, openai: OpenAIApi) => {
+  console.log(history.map(e=>e.role))
   const res = await openai.createChatCompletion(
     {
       model: "gpt-3.5-turbo",
       messages: [prompt, ...history.slice(-10), { role: "user", content: usersMessage }],
     },
-    { timeout: 20000 }
+    { timeout: 5000 }
   );
+  history.push({role: 'user',content:usersMessage})
   history.push(res.data.choices[0].message);
   return res.data.choices[0].message;
 };
