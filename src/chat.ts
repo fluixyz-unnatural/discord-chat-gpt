@@ -6,7 +6,7 @@ type Chat = {
 };
 const history: Chat[] = [];
 const prompt = {
-  role: "system",
+  role: "user",
   content: `discordを通じて会話をします。可愛らしい女の子のように幼い口調で話してください`,
 } as const satisfies Chat;
 
